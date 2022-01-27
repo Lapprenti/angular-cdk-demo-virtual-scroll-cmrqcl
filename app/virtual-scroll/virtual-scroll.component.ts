@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { TreeNode, topologyCustomBaseNode, expand } from '../data/treeData';
@@ -7,19 +7,20 @@ import { TreeNode, topologyCustomBaseNode, expand } from '../data/treeData';
   selector: 'app-virtual-scroll',
   templateUrl: './virtual-scroll.component.html',
   styleUrls: ['./virtual-scroll.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VirtualScrollComponent {
-  public coreBaseNode$ = new BehaviorSubject<Array<TreeNode>>(
-    topologyCustomBaseNode
-  );
+  coreBaseNode$ = new BehaviorSubject<Array<TreeNode>>(topologyCustomBaseNode);
 
-  expand(clickedNode: TreeNode, allNodes: Array<TreeNode>) {
+  
+  expand(clickedNode: TreeNode) {
     // Get concerned node
-    const computedNodeList = expand(clickedNode, allNodes);
+    const computedNodeList = expand(clickedNode, this.coreBaseNode$.getValue());
     console.log(computedNodeList);
     this.coreBaseNode$.next(computedNodeList);
   }
   reset() {
+    this.coreBaseNode$.complete();
     this.coreBaseNode$ = new BehaviorSubject<Array<TreeNode>>(
       topologyCustomBaseNode
     );
