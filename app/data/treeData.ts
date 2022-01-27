@@ -3,6 +3,7 @@ export interface TreeNode {
   type: 'Device' | 'Folder';
   parentId: number | undefined;
   children?: Array<TreeNode>;
+  indentation?: number;
 }
 
 // Data example :
@@ -130,42 +131,32 @@ const fourthNode: Array<TreeNode> = [
   },
 ];
 
-const getNodeChildrens = (baseNode: TreeNode) => {
-  switch (baseNode.parentId) {
-    case 9999:
-      baseNode.children = firstNode;
-      return baseNode;
-    case 0:
-      baseNode.children = secondNode;
-      return baseNode;
-    case 3:
-      baseNode.children = fourthNode;
-      return baseNode;
-    case 6:
-      baseNode.children = thirdNode;
-      return baseNode;
-    default:
-      return baseNode;
-  }
-};
+const expand = (clickedNode: TreeNode): Array<TreeNode> => {
+  const result: Array<TreeNode> = [];
 
-const expand = (baseNode: TreeNode) => {
-  switch (baseNode.id) {
-    case 9999:
-      baseNode.children = firstNode;
-      return baseNode;
-    case 0:
-      baseNode.children = secondNode;
-      return baseNode;
-    case 3:
-      baseNode.children = fourthNode;
-      return baseNode;
-    case 6:
-      baseNode.children = thirdNode;
-      return baseNode;
-    default:
-      return baseNode;
+  if (!clickedNode.parentId) {
+    clickedNode.indentation = 0;
   }
+  result.push(clickedNode);
+
+  switch (clickedNode.id) {
+    case 9999: // Custom topo
+      clickedNode.children = firstNode;
+      break;
+    case 0:
+      clickedNode.children = secondNode;
+      break;
+    case 3:
+      clickedNode.children = fourthNode;
+      break;
+    case 6:
+      clickedNode.children = thirdNode;
+      break;
+    default:
+      break;
+  }
+
+  return result.concat(clickedNode.children);
 };
 
 export {
