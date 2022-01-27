@@ -17,11 +17,11 @@ export class VirtualScrollComponent {
     // Get concerned node
     const computedNodeList = expand(clickedNode, allNodes);
     console.log(computedNodeList);
-    this.coreBaseNode$.next(topologyCustomBaseNode);
     this.coreBaseNode$.next(computedNodeList);
   }
-
   reset() {
-    this.coreBaseNode$.next(topologyCustomBaseNode);
+    this.coreBaseNode$ = new BehaviorSubject<Array<TreeNode>>(
+      topologyCustomBaseNode
+    );
   }
 }
