@@ -9,25 +9,34 @@ import { TreeNode, topologyCustomBaseNode, expand } from '../data/treeData';
   styleUrls: ['./virtual-scroll.component.css'],
 })
 export class VirtualScrollComponent {
-  coreBaseNode$ = this.reset();
+  coreBaseNode$ = this.load();
 
   expand(clickedNode: TreeNode) {
     // Get concerned node
+    const oldParent = clickedNode;
     const computedNodeList = expand(clickedNode);
     console.log(computedNodeList);
     this.coreBaseNode$ = Observable.create((observer) => {
-      const parent = [computedNodeList];
+      const grandFather =
+        oldParent.id !== computedNodeList.id ? oldParent : null;
+      const parents = grandFather
+        ? [grandFather, computedNodeList]
+        : [computedNodeList];
       const children = computedNodeList.children;
-      const final = parent.concat(children);
+      const final = parents.concat(children);
       observer.next(final);
       observer.complete();
     });
   }
 
-  reset() {
+  load() {
     return Observable.create((observer) => {
       observer.next(topologyCustomBaseNode);
       observer.complete();
     });
+  }
+
+  reset() {
+    this.coreBaseNode$ = this.load();
   }
 }
