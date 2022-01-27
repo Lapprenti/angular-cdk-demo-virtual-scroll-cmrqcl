@@ -16,6 +16,7 @@ export class VirtualScrollComponent {
   expand(clickedNode: TreeNode) {
     // Get concerned node
     const computedNodeList = expand(clickedNode);
+    console.log(computedNodeList);
     this.coreBaseNode$.next(computedNodeList);
   }
 

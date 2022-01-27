@@ -142,15 +142,27 @@ const expand = (clickedNode: TreeNode): Array<TreeNode> => {
   switch (clickedNode.id) {
     case 9999: // Custom topo
       clickedNode.children = firstNode;
+      clickedNode.children.map(
+        (c) => (c.indentation = clickedNode.indentation + 1)
+      );
       break;
     case 0:
       clickedNode.children = secondNode;
+      clickedNode.children.map(
+        (c) => (c.indentation = clickedNode.indentation + 1)
+      );
       break;
     case 3:
       clickedNode.children = fourthNode;
+      clickedNode.children.map(
+        (c) => (c.indentation = clickedNode.indentation + 1)
+      );
       break;
     case 6:
       clickedNode.children = thirdNode;
+      clickedNode.children.map(
+        (c) => (c.indentation = clickedNode.indentation + 1)
+      );
       break;
     default:
       break;
