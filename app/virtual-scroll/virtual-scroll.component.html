@@ -1,12 +1,3 @@
-<!-- <h3>Uniform size</h3>
-<cdk-virtual-scroll-viewport class="list-container list-group" autosize>
-	<div *cdkVirtualFor="let treeElement of fixedSizeData; let i = index" class="list-group-item" [style.height.px]="size">
-		Item {{i}}
-	</div>
-</cdk-virtual-scroll-viewport>
-
-<hr> -->
-
 <ng-container *ngIf="coreBaseNode$ | async as allNodes">
   <cdk-virtual-scroll-viewport class="list-container lg" [itemSize]="52.5">
     <div *cdkVirtualFor="let elm of allNodes" class="list-group-item">
@@ -14,21 +5,7 @@
         Id : {{ elm.id }} / Type : {{ elm.type }}
         <button (click)="expand(elm)">Expand</button>
       </div>
-      <!-- <div
-        class="state"
-        *ngFor="let child of elm.children"
-        class="list-group-item"
-      >
-        Id : {{ child.id }} / Type : {{ child.type }}
-        <button (click)="expand(elm)">Expand</button>
-      </div> -->
     </div>
   </cdk-virtual-scroll-viewport>
-
-  <!-- <div style="padding-top:20px;"> 
-  <button (click)="sortBy('name')" class="btn btn-info">Sort by state name</button>
-  <button (click)="sortBy('capital')" class="btn btn-info">Sort by state capital</button>
-  Total Size: {{allStates.length}}
-</div> -->
   <button (click)="reset()" class="btn btn-info">reset</button>
 </ng-container>
