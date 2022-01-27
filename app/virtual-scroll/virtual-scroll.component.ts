@@ -17,6 +17,7 @@ export class VirtualScrollComponent {
     // Get concerned node
     const computedNodeList = expand(clickedNode, allNodes);
     console.log(computedNodeList);
+    this.coreBaseNode$.next(topologyCustomBaseNode);
     this.coreBaseNode$.next(computedNodeList);
   }
 

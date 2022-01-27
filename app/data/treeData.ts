@@ -135,6 +135,8 @@ const expand = (
   clickedNode: TreeNode,
   allNodes: Array<TreeNode>
 ): Array<TreeNode> => {
+  let out: Array<TreeNode> = [];
+
   if (!clickedNode.parentId) {
     clickedNode.indentation = 0;
   }
@@ -168,9 +170,10 @@ const expand = (
       break;
   }
 
-  clickedNode.children.forEach((c) =>
-    allNodes.splice(allNodes.indexOf(clickedNode), 0, c)
-  );
+  clickedNode.children
+    .reverse()
+    .forEach((c) => allNodes.splice(allNodes.indexOf(clickedNode) + 1, 0, c));
+
   return allNodes;
 };
 
