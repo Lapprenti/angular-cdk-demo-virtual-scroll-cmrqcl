@@ -131,13 +131,13 @@ const fourthNode: Array<TreeNode> = [
   },
 ];
 
-const expand = (clickedNode: TreeNode): Array<TreeNode> => {
-  const result: Array<TreeNode> = [];
-
+const expand = (
+  clickedNode: TreeNode,
+  allNodes: Array<TreeNode>
+): Array<TreeNode> => {
   if (!clickedNode.parentId) {
     clickedNode.indentation = 0;
   }
-  result.push(clickedNode);
 
   switch (clickedNode.id) {
     case 9999: // Custom topo
@@ -168,7 +168,10 @@ const expand = (clickedNode: TreeNode): Array<TreeNode> => {
       break;
   }
 
-  return result.concat(clickedNode.children);
+  clickedNode.children.forEach((c) =>
+    allNodes.splice(allNodes.indexOf(clickedNode), 0, c)
+  );
+  return allNodes;
 };
 
 export {

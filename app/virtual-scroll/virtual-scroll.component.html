@@ -3,7 +3,7 @@
     <div *cdkVirtualFor="let elm of allNodes" class="list-group-item">
       <div class="state">
         Id : {{ elm.id }} / Type : {{ elm.type }}
-        <button (click)="expand(elm)">Expand</button>
+        <button (click)="expand(elm, allNodes)">Expand</button>
       </div>
     </div>
   </cdk-virtual-scroll-viewport>
